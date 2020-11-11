@@ -34,7 +34,6 @@ function setup() {
 }
 
 function draw() {
-  fill("blue")
   if (gameState === PLAY){
   if (background23.x <= 0){
   background23.x = 200;
@@ -55,13 +54,12 @@ function draw() {
       case 40 : player1.scale = 0.5;         
       break;
   }
-      if (player1.isTouching(obstacleGroup) && blah!==1){
+      if (player1.isTouching(obstacleGroup)){
   player1.scale = 0.1;
     blah = blah + 1;
     obstacleGroup.destroyEach();
   }
-    if (player1.isTouching(obstacleGroup) && blah === 1){
-      console.log("here")
+    if (player1.isTouching(obstacleGroup) && blah === 2){
       gameState = END;
     }
      food();
@@ -71,27 +69,23 @@ function draw() {
     player1.velocityY =-14;
   }
   player1.velocityY = player1.velocityY + 0.5;     
-  
+  player1.collide(ground);
       
   }
   
  if (gameState === END){
   player1.velocityX = 0;
   background23.velocityX = 0;
-  foodGroup.setVelocityXEach(0);
-obstacleGroup.setVelocityXEach(0);
- 
+  fill("blue")
+  text("GAME OVER",200,100);  
 }
-  player1.collide(ground);
   drawSprites();
    text("Score :" + score,300,100);
-if (gameState === END){
-    text("GAME OVER",200,100); 
-}
+//     background("blue");
 }
  function food(){
    if (frameCount % 150 === 0){
-    banana = createSprite(400,random(150,300),20,20);
+    banana = createSprite(400,120,20,20);
   banana.addImage("duy",bananaImage)
   
   banana.velocityX = -2;
